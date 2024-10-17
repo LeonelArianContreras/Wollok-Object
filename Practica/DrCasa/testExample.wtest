@@ -127,7 +127,7 @@ describe "Dr Casa - Temporada 3" {
         assert.throwsException{cameron.donarA(house, 10000000)}
     }
 
-    test "2. Cameron le intentara donar a Foreman succesfully, por ende, ForeMan tendra 20500 celulas" {
+    test "2. Cameron le intentara donar a Foreman succesfully, por ende, ForeMan tendra 820000 celulas" {
         cameron.donarA(foreman, 800000)
         assert.equals(820000, foreman.cantidadCelulas())
     }
