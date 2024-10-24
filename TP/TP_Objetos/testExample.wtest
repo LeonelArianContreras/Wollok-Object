@@ -1,9 +1,151 @@
-import example.pepita
+import src.TierraMedia.*
+import src.Armas.*
+import src.Guerreros.*
 
-describe "group of tests for pepita" {
+describe "Trabajo Practico - Parte 1" {
+  
+  const glamdring = new Espada(multiplicador = 10, origen = origenElfico)
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  test "1. Poder de Gandalf con toda la vida y sus armas" {
+    gandalf.agregarArma(baculo)
+    gandalf.agregarArma(glamdring)
+    
+    assert.equals(2800, gandalf.poder())
+  }
+
+  test "2. Poder de Gandalf sin armas y con 80 de vida" {
+    gandalf.cantidadDeVida(80)
+
+    assert.equals(1200, gandalf.poder())
+  }
+
+  test "3. Poder de Gandalf con 5 de vida y su báculo" {
+    gandalf.cantidadDeVida(5)
+    gandalf.agregarArma(baculo)
+
+    assert.equals(2300, gandalf.poder())
+  }
+
+  test "4. Poder de Gandalf con 30 de vida, su báculo y su espada pero versión enana" {
+    gandalf.cantidadDeVida(30)
+    gandalf.agregarArma(baculo)
+    glamdring.origen(origenEnano)
+    gandalf.agregarArma(glamdring)
+    
+    assert.equals(1650, gandalf.poder())
+  }
+
+  test "5. Gandalf full vida y consus armas puede atravesar Lebennin" {
+    gandalf.cantidadDeVida(100)
+    gandalf.agregarArma(baculo)
+    gandalf.agregarArma(glamdring)
+
+    assert.that(gandalf.puedeAtravesar(lebennin))
+  }
+
+  test "6. Gandalf sin armas y con 11 de vida puede atravesar Lebennin" {
+    gandalf.cantidadDeVida(11)
+    assert.notThat(gandalf.puedeAtravesar(lebennin))
+  }
+
+  test "7. Gandalf sin armas y con 11 de vida no puede atravesar Minas Tirith" {
+    gandalf.cantidadDeVida(100)
+    assert.notThat(gandalf.puedeAtravesar(minasTirith))
+  }
+
+  test "8. Gandalf full vida y con sus armas puede atravesar el camino compuesto por Lebennin y Minas Tirith" {
+    gandalf.cantidadDeVida(100)
+    gandalf.agregarArma(baculo)
+    gandalf.agregarArma(glamdring)
+
+    assert.that(gandalf.puedeAtravesar(gondor))
+  }
+
+  test "9. Gandalf full vida y con sus armas atraviesa el camino compuesto por Lebennin y Minas Tirith" {
+    gandalf.cantidadDeVida(100)
+    gandalf.agregarArma(baculo)
+    gandalf.agregarArma(glamdring)
+    
+    gandalf.atravesar(gondor)
+    assert.equals(90, gandalf.cantidadDeVida())
+  }
+
+  test "10. Tom puede atravesar Lebennin" {
+    assert.that(tomBombadil.puedeAtravesar(lebennin))
+  }
+
+  test "11. Tom no recibe efecto al atravesar" {
+    assert.equals(100, tomBombadil.cantidadDeVida())
+  }
+}
+
+describe "Trabajo Practico - Parte 2" {
+  const espada = new Espada(multiplicador = 15, origen = origenEnano)
+  const daga = new Daga(multiplicador = 15, origen = origenEnano)
+  const hacha = new ArmaPrehistorica(longitud = 50, kilogramos = 5)
+  const arco = new Arco(longitud = 110, kilogramos = 40)
+  const glamdring = new Espada(multiplicador = 10, origen = origenElfico)
+  const espadaAnduril = new Espada(multiplicador = 18, origen = origenElfico)
+  const dagaEnana = new Daga(multiplicador = 10, origen = origenEnano)
+  const espadaElfica8 = new Espada(multiplicador = 8, origen = origenElfico)
+  const hachaDeGimli = new ArmaPrehistorica(longitud = 70, kilogramos = 5)
+  const espadaElfica12 = new Espada(multiplicador = 12, origen = origenElfico)
+
+  const frodo = new Hobbit(cantidadDeVida = 50, armas = [espadaElfica8])
+  const gimli = new Enano(cantidadDeVida = 75, armas = [hachaDeGimli, hachaDeGimli], factorDePoder = 3)
+  const legolas = new Elfo(cantidadDeVida = 80, destrezaPropia = 1, armas = [arco, espadaElfica12])
+  const aragorn = new Humano(cantidadDeVida = 85, armas = [espadaAnduril, dagaEnana], limitadorDePoder = 20)
+  const gandalf = new Maiar(cantidadDeVida = 100, armas = [baculo, glamdring], factorPoderBasico = 300, factorPoderAmenaza = 15)
+
+  test "1. Espada con multiplicador de 15 y de origen Enano" {
+    assert.equals(300, espada.poder())
+  }
+
+  test "2. Daga con multiplicador de 15 y de origen Enano" {
+    assert.equals(150, daga.poder())
+  }
+
+  test "3. Hacha con mango de 50, con una hoja de 5kg" {
+    assert.equals(250, hacha.poder())
+  }
+
+  test "4. Arco con longitud de 110cm" {
+    assert.equals(440, arco.poder())
+  }
+
+  test "5. Modificar la tension del arco a 35kg. Mismo arco que antes..." {
+    arco.kilogramos(35)
+    assert.equals(385, arco.poder())
+  }
+
+  test "6. Poder de Frodo (sin items)" {
+    assert.equals(290, frodo.poder())
+  }
+
+  test "7. Poder de Gimli" {
+    assert.equals(2175, gimli.poder())
+  }
+
+  test "8. Poder de Légolas" {
+    assert.equals(2480, legolas.poder())
+  }
+
+  test "9. Poder de Aragorn" {
+    assert.equals(2720, aragorn.poder())
+  }
+
+  test "10. Poder de Gandalf" {
+    assert.equals(2800, gandalf.poder())
+  }
+
+  test "11. Poder de Gandalf con 9 de vida y todas sus armas" {
+    gandalf.cantidadDeVida(9)
+    assert.equals(4100, gandalf.poder())
+  }
+
+  test "12. Poder de Légolas que obtiene medio punto de destreza adicional propia" {
+    legolas.destrezaPropia(1.5)
+    assert.equals(2880, legolas.poder())
   }
 
 }
