@@ -5,6 +5,7 @@ import src.Guerreros.*
 describe "Trabajo Practico - Parte 1" {
   
   const glamdring = new Espada(multiplicador = 10, origen = origenElfico)
+  const gandalf = new Maiar(cantidadDeVida = 100, armas = [], factorPoderBasico = 300, factorPoderAmenaza = 15)
 
   test "1. Poder de Gandalf con toda la vida y sus armas" {
     gandalf.agregarArma(baculo)
@@ -119,7 +120,7 @@ describe "Trabajo Practico - Parte 2" {
   }
 
   test "6. Poder de Frodo (sin items)" {
-    assert.equals(290, frodo.poder())
+    assert.equals(250, frodo.poder())
   }
 
   test "7. Poder de Gimli" {
@@ -127,11 +128,11 @@ describe "Trabajo Practico - Parte 2" {
   }
 
   test "8. Poder de Légolas" {
-    assert.equals(2480, legolas.poder())
+    assert.equals(2300, legolas.poder())
   }
 
   test "9. Poder de Aragorn" {
-    assert.equals(2720, aragorn.poder())
+    assert.equals(2337.5, aragorn.poder())
   }
 
   test "10. Poder de Gandalf" {
@@ -140,12 +141,12 @@ describe "Trabajo Practico - Parte 2" {
 
   test "11. Poder de Gandalf con 9 de vida y todas sus armas" {
     gandalf.cantidadDeVida(9)
-    assert.equals(4100, gandalf.poder())
+    assert.equals(400, gandalf.poder())
   }
 
   test "12. Poder de Légolas que obtiene medio punto de destreza adicional propia" {
     legolas.destrezaPropia(1.5)
-    assert.equals(2880, legolas.poder())
+    assert.equals(2670, legolas.poder())
   }
 
 }

@@ -1,5 +1,3 @@
-import Guerrero.*
-
 object lebennin {
     method puedePasar(unGuerrero) = unGuerrero.poder() > 1500
     method recorrer(unGuerrero) { unGuerrero.perderVida(10) }

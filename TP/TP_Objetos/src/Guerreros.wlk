@@ -1,5 +1,9 @@
 import Armas.*
 
+class Grupo {
+    const guerreros = []
+}
+
 class Guerrero {
     var property cantidadDeVida = 100
     const armas = []
