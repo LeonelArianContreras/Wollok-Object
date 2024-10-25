@@ -85,6 +85,7 @@ describe "Trabajo Practico - Parte 2" {
   const daga = new Daga(multiplicador = 15, origen = origenEnano)
   const hacha = new ArmaPrehistorica(longitud = 50, kilogramos = 5)
   const arco = new Arco(longitud = 110, kilogramos = 40)
+
   const glamdring = new Espada(multiplicador = 10, origen = origenElfico)
   const espadaAnduril = new Espada(multiplicador = 18, origen = origenElfico)
   const dagaEnana = new Daga(multiplicador = 10, origen = origenEnano)
@@ -97,6 +98,15 @@ describe "Trabajo Practico - Parte 2" {
   const legolas = new Elfo(cantidadDeVida = 80, destrezaPropia = 1, armas = [arco, espadaElfica12])
   const aragorn = new Humano(cantidadDeVida = 85, armas = [espadaAnduril, dagaEnana], limitadorDePoder = 20)
   const gandalf = new Maiar(cantidadDeVida = 100, armas = [baculo, glamdring], factorPoderBasico = 300, factorPoderAmenaza = 15)
+  const mati = new Maiar(cantidadDeVida = 1, armas = [], factorPoderBasico = 300, factorPoderAmenaza = 15)
+
+  const grupo1 = new Grupo(guerreros = [frodo, gimli, legolas])
+  const camino1 = new Camino(zonas = [lebennin])
+
+  const grupo2 = new Grupo(guerreros = [frodo]) 
+  const camino2 = new Camino(zonas = [lebennin]) 
+
+  const grupo3 = new Grupo(guerreros = [mati])
 
   test "1. Espada con multiplicador de 15 y de origen Enano" {
     assert.equals(300, espada.poder())
@@ -149,4 +159,25 @@ describe "Trabajo Practico - Parte 2" {
     assert.equals(2670, legolas.poder())
   }
 
+  test "13. Un grupo no puede pasar por una zona por requerimiento de ítem" {
+    assert.notThat(minasTirith.cumpleRequerimiento(grupo1))
+  }
+
+  test "14. Un grupo no puede pasar por una zona por requerimiento de guerrero" {
+    assert.notThat(bosqueDeFangorn.cumpleRequerimiento(grupo3))
+  }
+
+  test "15. Un grupo puede pasar por una zona" {
+    assert.notThat(bosqueDeFangorn.cumpleRequerimiento(grupo3))
+  }
+
+  test "16. Un grupo no puede atravesar un camino" {
+    assert.notThat(grupo2.puedeRecorrer(camino2))
+  }
+
+  test "17. Un grupo no puede atravesar un camino" {
+    assert.that(grupo1.puedeRecorrer(camino1))
+  }
+
 }
+

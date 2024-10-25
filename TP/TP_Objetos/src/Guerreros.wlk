@@ -1,7 +1,17 @@
 import Armas.*
 
 class Grupo {
-    const guerreros = []
+    const property guerreros = []
+
+    method puedeRecorrer(unCamino) = unCamino.puedeCruzar(self)
+
+    method tiene(item, cantidad) = self.contarItem(item) == cantidad
+
+    method contarItem(item) = 
+        guerreros.map{guerrero => guerrero.cantidadDe(item)}.sum()
+
+    method tieneAlguienConPoder(unPoder) = guerreros.any{guerrero => guerrero.poder() >= unPoder}
+    method algunoTieneArma() = guerreros.any{guerrero => guerrero.tieneAlgunArma()}
 }
 
 class Guerrero {
@@ -9,12 +19,18 @@ class Guerrero {
     const armas = []
     const items = []
 
+    method poder()
+
+    method cantidadDe(item) = items.occurrencesOf(item)
+
     method agregarArma(arma) = armas.add(arma)
     method tieneAlgunArma() = !armas.isEmpty()
 
     method poderTotalDeArmas() = armas.sum{arma => arma.poder()}
     method calculoDePoder(cantidadAMultiplicar) = cantidadDeVida * cantidadAMultiplicar + self.poderTotalDeArmas() * 2
 
+
+    //  Parte 1  //
     method aumentarVida(cantidad) { cantidadDeVida += cantidad }
     method perderVida(cantidad) { cantidadDeVida -= cantidad }
 
@@ -22,10 +38,9 @@ class Guerrero {
         if(self.puedeAtravesar(zona))
             zona.recorrer(self)
     }
-
     method puedeAtravesar(zona) = zona.puedePasar(self)
-
-    method poder()
+    // // // // //
+    
 }
 
 class Hobbit inherits Guerrero {
