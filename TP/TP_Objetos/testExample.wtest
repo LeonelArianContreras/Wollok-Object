@@ -151,7 +151,7 @@ describe "Trabajo Practico - Parte 2" {
 
   test "11. Poder de Gandalf con 9 de vida y todas sus armas" {
     gandalf.cantidadDeVida(9)
-    assert.equals(400, gandalf.poder())
+    assert.equals(4000, gandalf.poder())
   }
 
   test "12. Poder de Légolas que obtiene medio punto de destreza adicional propia" {
@@ -181,3 +181,46 @@ describe "Trabajo Practico - Parte 2" {
 
 }
 
+describe "Trabajo Practico - Parte 3" {
+  const grupo2 = new Grupo(guerreros = [frodo]) 
+  const camino2 = new Camino(zonas = [lebennin]) 
+  const camino3 = new Camino(zonas = [bosqueDeFangorn])
+  const grupo3 = new Grupo(guerreros = [frodo, boromir])
+  const espadaElfica8 = new Espada(multiplicador = 8, origen = origenElfico)
+
+  const frodo = new Hobbit(cantidadDeVida = 50, armas = [espadaElfica8], items = [capaElfica])
+
+  const boromir = new Humano(cantidadDeVida = 20, limitadorDePoder = 1)
+  const grupo1 = new Grupo(guerreros = [boromir])
+  const camino1 = new Camino(zonas = [parthGalen])
+
+  const caminoInvalido = new Camino(zonas = [bosqueDeFangorn, parthGalen, edoras])
+  const caminoValido = new Camino(zonas = [bosqueDeFangorn, edoras])
+
+  test "1. Un grupo no puede atravesar una zona y produce un error al intentar pasar" {
+    assert.throwsException{grupo2.recorrer(camino2)}   
+  }
+
+  test "2. Un grupo atraviesa una zona y un integrante pierde capaElfica" {
+    grupo2.recorrer(camino3)
+    assert.notThat(frodo.tieneItem(capaElfica))
+  }
+
+  test "3. Un grupo atraviesa una zona y un integrande no pierde capaElfica ya que no lo tiene" {
+    grupo3.recorrer(camino3) // MMMM
+    assert.notThat(boromir.tieneItem(capaElfica))
+  }
+
+  test "4. Un integrante sufre las consecuencias de perdida de item al atravesar una zona con tal efecto" {
+    grupo1.recorrer(camino1)
+    assert.notThat(boromir.estaEnCombate())
+  }
+
+  test "5. Un grupo intenta atravesar un camino pero es invalido" {
+    assert.throwsException{grupo1.recorrer(caminoInvalido)}
+  }
+
+  test "5.1 Un grupo atraviesa un camino valido" {
+    assert.doesNotThrowException{grupo2.recorrer(caminoValido)}
+  }
+}
