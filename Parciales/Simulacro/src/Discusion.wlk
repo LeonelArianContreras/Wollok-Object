@@ -23,7 +23,7 @@ class Argumento {
     const descripcion
 
     method esEnriquecedor() = naturalezas.all{naturaleza => naturaleza.enriquece(self)}
-    method descripcionCon(cantidadPalabras) = descripcion.size() == cantidadPalabras
+    method descripcionCon(cantidadPalabras) = descripcion.words() == cantidadPalabras
     method descripcionTerminaCon(unCaracter) = descripcion.endsWith(unCaracter)
 }
 
