@@ -14,7 +14,8 @@ class Filosofo {
   method realizarActividades() {
     actividades.forEach{actividad => actividad.consecuencias(self)}
     self.pasarDia()
-    self.verificarDiasVividos()
+    self.verificarAnio()
+    self.verificarSabio()
   }
 
   method disminuirNivelDeIluminacion(cantidad) { nivelDeIluminacion -= cantidad }
@@ -23,10 +24,13 @@ class Filosofo {
   method pasarDia() { diasVividos += 1 }
   method agregarHonorifico(unHonorifico) { honorificos.add(unHonorifico) }
 
-  method verificarDiasVividos() {
-    if(diasVividos == 365)
+  method verificarAnio() {
+    if(diasVividos % 365 == 0) 
       self.aumentarNivelDeIluminacion(10)
-    else if(diasVividos == (60 * 365)) // De cagon los parentesis
+  }
+
+  method verificarSabio() {
+    if(diasVividos % (60 * 365) == 0) // De cagon los parentesis
       self.agregarHonorifico("El sabio")
   }
 
