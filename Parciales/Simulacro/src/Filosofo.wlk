@@ -35,7 +35,7 @@ class Filosofo {
 }
 
 class FilosofoContemporaneo inherits Filosofo {
-    const esAmanteDeLaBotanica = false
+    var esAmanteDeLaBotanica = false
 
     override method presentarse() = "hola"
     override method nivelDeIluminacion() = if(esAmanteDeLaBotanica) super() else super() * 5
