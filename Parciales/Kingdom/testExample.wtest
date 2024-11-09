@@ -1,0 +1,38 @@
+import src.Ataques.*
+import src.Criaturas.*
+
+describe "Parte 1" {
+    const umbrio = new Criatura(raza = razaIncorporea, defensa = 10, vida = 50, elemento = oscuridad)
+    const nocturnoRojo = new Criatura(raza = razaSinCorazon, defensa = 0, vida = 80, elemento = fuego)
+
+    const ataqueFisico1 = new AtaqueFisico(potencia = 20)
+    const ataqueMagico1 = new AtaqueMagico(potencia = 100, elemento = fuego)
+    const ataqueMagico2 = new AtaqueMagico(potencia = 10, elemento = hielo)
+    const ataqueMagico3 = new AtaqueMagico(potencia = 10, elemento = luz)
+    const ataqueFisico2 = new AtaqueFisico(potencia = 40)
+    test "1. Umbrio recibe un ataque fisico de potencia 20" {
+        umbrio.recibirAtaqueFisico(ataqueFisico1)
+        assert.equals(40, umbrio.vida())
+    }
+
+    test "2. Nocturno Rojo recibe un hechizo de potencia 100" {
+        nocturnoRojo.recibirHechizo(ataqueMagico1)
+        assert.equals(80, nocturnoRojo.vida())
+    }
+
+    test "3. Nocturno Rojo recibe un hechizo de hielo de potencia 10" {
+        nocturnoRojo.recibirHechizo(ataqueMagico2)
+        assert.equals(60, nocturnoRojo.vida())
+    }
+
+    test "4. Nocturno Rojo recibe un hechizo de luz de potencia 10" {
+        nocturnoRojo.recibirHechizo(ataqueMagico3)
+        assert.equals(70, nocturnoRojo.vida())
+    }
+
+    test "5. Nocturno Rojo recibe un ataque fisico de potencia 40" {
+        nocturnoRojo.recibirAtaqueFisico(ataqueFisico2)
+        assert.equals(44, nocturnoRojo.vida())
+    }
+
+}
