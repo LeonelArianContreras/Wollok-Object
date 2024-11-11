@@ -1,0 +1,11 @@
+unaLista.occurrencesOf(elementoAContar)
+numero.max()
+numero.min()
+numero.between(minimo, maximo)
+lista.map{}: transforma la lista en lo que le digas en el bloque
+lista.sum{}: suma todo lo que tenga la lista de lo que le pases por bloque
+lista.count{}: cuenta las veces que aparece un elemento segun la condicion que le pases por bloque
+lista.filter{}: crea una lista que cumple la condicion que le pases por bloque
+lista.any{}: devuelve booleano si encontro algun elemento q cumpla la condicion que le pases por bloque
+lista.anyone(): devuelve un elemento random de la lista
+lista.all{}: devuelve booleano si todo elemento de la lista cumple con lo que le pases por bloque
