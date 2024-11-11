@@ -15,6 +15,11 @@ class Persona {
 
     method tieneLaMesa() = self.cantidadDeLenguajes()
 
+    method esInvitado() = self.esCopado() || self.cumpleCondicionesDeInvitado()
+
+    method cumpleCondicionesDeInvitado()
+    method esCopado()
+
     method regalar() = 1000 * self.cantidadDeLenguajesModernos()
     
 }
@@ -22,24 +27,24 @@ class Persona {
 class Desarrollador inherits Persona {
     var programaEnWollok = true
 
-    method esInvitado() = self.esCopado() || self.programaEnWollok() || self.programaEnAlgunLenguajeAntiguo()
+    override method cumpleCondicionesDeInvitado() = self.programaEnWollok() || self.programaEnAlgunLenguajeAntiguo()
     
-    method esCopado() = self.programaEnAlgunLenguajeAntiguo() && self.programaEnAlgunLenguajeModerno()
+    override method esCopado() = self.programaEnAlgunLenguajeAntiguo() && self.programaEnAlgunLenguajeModerno()
 
     method programaEnWollok() = programaEnWollok
 }
 
 class Infraestructura inherits Persona {
 
-    method esInvitado() = self.cantidadDeLenguajes() >= 5 || self.esCopado()
+    override method cumpleCondicionesDeInvitado() = self.cantidadDeLenguajes() >= 5
 
-    method esCopado() = self.experienciaMayorA(10) 
+    override method esCopado() = self.experienciaMayorA(10) 
 }
 
 class Jefe inherits Persona {
     const subordinados = []
 
-    method esInvitado() = self.condicionDeInvitacion()
+    override method cumpleCondicionesDeInvitado() = self.condicionDeInvitacion()
 
     method agregarEmpleado(unEmpleado) { subordinados.add(unEmpleado) }
 
@@ -48,4 +53,5 @@ class Jefe inherits Persona {
 
     override method tieneLaMesa() = 99
     override method regalar() = super() + 1000 * subordinados.size()
+    override method esCopado() = false
 }
