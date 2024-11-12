@@ -9,3 +9,6 @@ lista.filter{}: crea una lista que cumple la condicion que le pases por bloque
 lista.any{}: devuelve booleano si encontro algun elemento q cumpla la condicion que le pases por bloque
 lista.anyone(): devuelve un elemento random de la lista
 lista.all{}: devuelve booleano si todo elemento de la lista cumple con lo que le pases por bloque
+nivelDeFelicidad = 10000.min(nivelDeFelicidad + cantidad): para chequear q nunca se pase de cierto numero
+drop(cantidad): dropea x cantidad
+lista.clear(): vacia la lista
