@@ -38,13 +38,16 @@ class Persona {
   method negarRecuerdos(unRecuerdo) { emocionDominante.negarA(unRecuerdo) }
 
   method enviarADormir(keyWord) {
-    recuerdos.forEach{ recuerdo => recuerdo.afectarPorEmocion(self) }
-    recuerdos.forEach{ recuerdo => recuerdo.descripcionContiene(keyWord)}
+    self.asentarTodos()
+    self.asentarSelectivamenteATodos(keyWord)
     self.enviarAMemoriaDeCortoPlazo()
     self.controlHormonal()
     self.aumentarFelicidad(100)
     self.liberarRecuerdos()
   }
+
+  method asentarTodos() { recuerdos.forEach{ recuerdo => recuerdo.afectarPorEmocion(self) } }
+  method asentarSelectivamenteATodos(keyWord) { recuerdos.forEach{ recuerdo => recuerdo.descripcionContiene(keyWord)} }
 
   method recuerdosNoCentralesYNoNegados() = recuerdos.filter{ recuerdo => !emocionDominante.negarA(recuerdo) }
   method enviarAMemoriaDeCortoPlazo() { memoriaDeLargoPlazo.addAll(self.recuerdosNoCentralesYNoNegados()) }
@@ -58,7 +61,8 @@ class Persona {
 
   method hayPensamientoCentralEnMemoriaLargoPlazo() = pensamientosCentrales.any{pensamientoCentral => memoriaDeLargoPlazo.contains(pensamientoCentral)}
   method todoRecuerdoPresentaMismaEmocionDominante() = recuerdos.all{ recuerdo => recuerdo.emocionDominanteEs(self.emocionDominanteDeUnRecuerdo()) }
-  method emocionDominanteDeUnRecuerdo() = recuerdos.anyone().emocionDominante()
+  method emocionDominanteDeUnRecuerdo() = recuerdos.first().emocionDominante()
+
   method perderLosTresPensamientosCentralesMasAntiguos() { 
     pensamientosCentrales.sortBy{ pc1, pc2 => pc1.fecha() > pc2.fecha() }.drop(3)
   }
@@ -71,7 +75,9 @@ class Persona {
 
   method rememorarRecuerdo() = memoriaDeLargoPlazo.any{ recuerdo => self.condicionDeRememoracion(recuerdo) }
 
-  method condicionDeRememoracion(unRecuerdo) = unRecuerdo.fecha() > edad / 2
+  method condicionDeRememoracion(unRecuerdo) = self.calculoDeAnios(unRecuerdo) > edad / 2
+
+  method calculoDeAnios(unRecuerdo) = unRecuerdo.fecha().year() - new Date().year() 
 
   method cantidadRecuerdosDeLargoPlazoRepetidos() = 
     memoriaDeLargoPlazo.max{ recuerdo => memoriaDeLargoPlazo.ocurrencesOf(recuerdo)}

@@ -1,6 +1,6 @@
 class Recuerdo {
   const descripcion
-  const fecha
+  const fecha = new Date()
   const emocionDominante
 
   method fecha() = fecha
